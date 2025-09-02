@@ -1,0 +1,57 @@
+#fileInput{
+    margin: 10px;
+}
+
+#writeButton{
+    margin: 10px;
+}
+
+#outputJon{
+    margin: 10px;
+}
+
+#selectDay{
+    margin: 10px 10px;
+    display: none;
+}
+
+#test{
+    display: block;
+    margin: 0 10px;
+}
+
+#userNameArea{
+    display: none;
+}
+
+#buttons{
+    display: none;
+}
+
+.tableSame{
+    border-top-color: transparent;
+    color: transparent;
+}
+
+.tableUnique{
+    border-bottom: none;
+}
+
+table{
+    border: "1" black;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+tr, th, td{
+    border: 1px solid black;
+}
+
+#tableArea{
+    display: none;
+}
+
+#name, #userName{
+    padding: 0 2px;
+}
