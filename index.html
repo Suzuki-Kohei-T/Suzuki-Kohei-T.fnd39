@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>e-portfolio</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <form name="myform">
+            <input type="file" id="fileInput">
+            <br/>
+            <button id="writeButton">ファイルに書き込む</button>
+        </form>
+
+        <!-- <button id="test">test</button> -->
+        <div id="userNameArea">
+            <h2 id="name">Name:</h2>
+            <h2 id="userName"></h2>
+        </div>
+        <div id="buttons">
+            <input type="radio" name="selectScope" value="all" checked="true">全体
+            <input type="radio" name="selectScope" value="day">日毎
+        <br/>
+        <select name="selectDay" id="selectDay">
+
+        </select>
+        <br/>
+    </div>
+
+    <table id="tableAll">
+
+    </table>
+
+    <div id="tableArea">
+
+    </div>
+    
+    <script src=script.js></script>
+</body>
+</html>
