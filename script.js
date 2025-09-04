@@ -1,39 +1,5 @@
 let selectedFile;
 let inputFile;
-// let inputFile = {
-//     "name":"Dummy Name",
-//     "item":[
-//         {"day":5,"title":"テスト駆動開発","level":"基礎","part":1,"pass":1,"id":1},
-//         {"day":5,"title":"テスト駆動開発","level":"基礎","part":2,"pass":1,"id":2},
-//         {"day":5,"title":"テスト駆動開発","level":"基礎","part":3,"pass":1,"id":3},
-//         {"day":5,"title":"テスト駆動開発","level":"基礎","part":4,"pass":1,"id":4},
-//         {"day":5,"title":"テスト駆動開発","level":"基礎","part":5,"pass":1,"id":5},
-//         {"day":5,"title":"テスト駆動開発","level":"基礎","part":6,"pass":0,"id":6},
-//         {"day":5,"title":"テスト駆動開発","level":"中級","part":1,"pass":1,"id":7},
-//         {"day":5,"title":"テスト駆動開発","level":"中級","part":2,"pass":1,"id":8},
-//         {"day":5,"title":"テスト駆動開発","level":"応用","part":1,"pass":1,"id":9},
-//         {"day":5,"title":"テスト駆動開発","level":"応用","part":2,"pass":0,"id":10},
-//         {"day":5,"title":"テスト駆動開発","level":"応用","part":3,"pass":0,"id":11},
-//         {"day":5,"title":"テスト駆動開発","level":"ナイトメア","part":1,"pass":0,"id":12},
-//         {"day":6,"title":"続・条件分岐","level":"基礎","part":1,"pass":1,"id":13},
-//         {"day":6,"title":"続・条件分岐","level":"基礎","part":2,"pass":1,"id":14},
-//         {"day":6,"title":"続・条件分岐","level":"基礎","part":3,"pass":1,"id":15},
-//         {"day":6,"title":"続・条件分岐","level":"中級","part":1,"pass":1,"id":16},
-//         {"day":6,"title":"続・条件分岐","level":"中級","part":2,"pass":1,"id":17},
-//         {"day":6,"title":"続・条件分岐","level":"中級","part":3,"pass":1,"id":18},
-//         {"day":6,"title":"続・条件分岐","level":"中級","part":4,"pass":0,"id":19},
-//         {"day":6,"title":"続・条件分岐","level":"中級","part":5,"pass":0,"id":20},
-//         {"day":6,"title":"続・条件分岐","level":"応用","part":1,"pass":1,"id":21},
-//         {"day":6,"title":"続・条件分岐","level":"応用","part":2,"pass":0,"id":22},
-//         {"day":6,"title":"関数・比較・条件・分岐","level":"基礎","part":1,"pass":1,"id":23},
-//         {"day":6,"title":"関数・比較・条件・分岐","level":"基礎","part":2,"pass":1,"id":24},
-//         {"day":6,"title":"関数・比較・条件・分岐","level":"基礎","part":3,"pass":1,"id":25},
-//         {"day":6,"title":"関数・比較・条件・分岐","level":"基礎","part":4,"pass":1,"id":26},
-//         {"day":6,"title":"関数・比較・条件・分岐","level":"中級","part":1,"pass":1,"id":27},
-//         {"day":6,"title":"関数・比較・条件・分岐","level":"応用","part":1,"pass":1,"id":28},
-//         {"day":6,"title":"関数・比較・条件・分岐","level":"ナイトメア","part":1,"pass":0,"id":29}
-//     ]
-// };
 
 document.getElementById('fileInput').addEventListener('change', function(event) {
     selectedFile = event.target.files[0];
@@ -41,12 +7,12 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     reader.readAsText(selectedFile);
     reader.addEventListener('load', function() {
         // console.log(reader.result);
-        console.log(JSON.parse(reader.result));
+        // console.log(JSON.parse(reader.result));
         inputFile = JSON.parse(reader.result);
-        console.log(inputFile);
+        // console.log(inputFile);
         document.getElementById('userName').textContent = inputFile.name;
         testClick();
-    })
+    });
 });
 
 // document.getElementById("test").addEventListener("click",testClick);
@@ -60,7 +26,7 @@ for (const radio of radios) {
 }
 
 function testClick(e){
-    console.log("test button clicked")
+    // console.log("test button clicked");
     const tableAll = document.getElementById("tableAll");
     tableAll.className = "table";
     const tr = document.createElement("tr");
@@ -132,7 +98,6 @@ function createSelect(arr){
 
 function createTableAll(day){
     const tableAll = document.getElementById("tableAll");
-
     const titles = getValue(day,"title"); //タイトルの種類を取得
     // console.log(titles);
     for(const title of titles){
@@ -157,6 +122,11 @@ function createTableAll(day){
                     );
                     td.textContent = parcent;
                     td.id = `${title}${level}`;
+                    if(parcent === "100%"){
+                        td.className = "complete";
+                    } else {
+                        td.className = "progress";
+                    }
                 } else {
                     td.textContent = parts[0][Object.keys(parts[0])[i]];
                 }
@@ -242,16 +212,16 @@ function dayChange(){
 
 function changePass(checkBox){
     // const pass = document.getElementById(id);
-    console.log(checkBox.target.id);
+    // console.log(checkBox.target.id);
     for(const item of inputFile.item){
-        console.log(item.id);
+        // console.log(item.id);
         if(item.id == checkBox.target.id){
             if(checkBox.target.checked){
                 item.pass = 1;
             } else {
                 item.pass = 0;
             }
-            console.log(item);
+            // console.log(item);
             break;
         }
     }
@@ -268,12 +238,18 @@ function changePass(checkBox){
     const parcent = new Intl.NumberFormat(
         'ja', { style: 'percent'}).format(passCount / levels.length
     );
-    document.getElementById(`${passItem.title}${passItem.level}`).textContent = parcent;
-    console.log("checkChanged");
+    const td = document.getElementById(`${passItem.title}${passItem.level}`);
+    td.textContent = parcent;
+    if(parcent === "100%"){
+        td.className = "complete";
+    } else {
+        td.className = "progress";
+    }
+    // console.log("checkChanged");
 }
 
 function changeALLorDAY(){
-    console.log("radio");
+    // console.log("radio");
     const radios = document.getElementsByName("selectScope");
     let selectedValue;
     for(const radio of radios) {
