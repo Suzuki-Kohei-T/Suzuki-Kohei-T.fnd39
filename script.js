@@ -12,7 +12,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         // console.log(inputFile);
         document.getElementById('userName').textContent = inputFile.name;
         testClick();
-    });
+    })
 });
 
 // document.getElementById("test").addEventListener("click",testClick);
@@ -41,11 +41,13 @@ function testClick(e){
     tableAll.appendChild(tr);
     
     const days = getValue(inputFile.item,"day");
+    const passedPerDay = [];
     createSelect(days);
     for(const day of days){
         const rows = getRows(inputFile.item,"day",day);
         // console.log(rows);
         createTable(rows);
+        passedPerDay.push(countPassPerDay(rows));
         const titles = getValue(rows,"title");
         for(const title of titles){
             const rowsTitle = getRows(rows,"title",title);
@@ -59,7 +61,8 @@ function testClick(e){
     selectedTable.style.display = "table";
     // console.log(document.getElementById("userNameArea"));
     document.getElementById("userNameArea").style.display = "flex";
-    document.getElementById("buttons").style.display = "block";
+    document.getElementById("buttons").style.display = "flex";
+    createGraph(days,passedPerDay);
 }
 
 function getValue(array,target){
@@ -245,6 +248,9 @@ function changePass(checkBox){
     } else {
         td.className = "progress";
     }
+    const targetDayIndex = chart.data.labels.indexOf(passItem.day);
+    chart.data.datasets[0].data[targetDayIndex] = countPassPerDay(days);
+    chart.update();
     // console.log("checkChanged");
 }
 
@@ -269,25 +275,59 @@ function changeALLorDAY(){
     } else {
         tableAll.style.display = "none";
         tableDay.style.display = "table";
-        buttons.style.display = "block";
+        buttons.style.display = "flex";
     }
 }
 
-document.getElementById('writeButton').addEventListener('click',
-    function() {
-        if (!selectedFile) {
+function countPassPerDay(rows){
+    let passCount = 0;
+    for(const row of rows){
+        if(row.pass === 1){
+            passCount++;
+        }
+    }
+    return Math.round((passCount / rows.length)*100);
+}
+
+const textarea = document.querySelector('textarea')
+document.getElementById('writeButton').addEventListener('click', async () => {
+    if (!selectedFile) {
             alert('ファイルを選択してください');
             return;
-        }
-        const jsonString = JSON.stringify(inputFile, null, 4);
-        const blob = new Blob([jsonString], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'data.json'; // ファイル名
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url); // URLを解放
     }
-);
+    inputFile.name = textarea.value;
+    const opts = {
+        suggestedName: textarea.value,
+        types: [{
+            description: "Json file",
+            accept: {"application/json": [".json"]},
+        }]
+    };
+    const handle = await window.showSaveFilePicker(opts);
+    const writable = await handle.createWritable();
+    await writable.write(JSON.stringify(inputFile, null, 4));
+    await writable.close();
+});
+
+function createGraph(days,passedPerDay){
+    const ctx = document.getElementById("myChart").getContext("2d");
+    window.chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: days,
+            datasets: [{
+                label: "達成度",
+                backgroundColor: "rgb(173, 216, 230)",
+                borderColor: "rgb(173, 216, 230)",
+                data: passedPerDay,
+            }]
+        },
+        options: {
+            scales:{
+                y:{
+                    max: 100
+                }
+            }
+        }
+    });
+}
