@@ -2,29 +2,35 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>e-portfolio</title>
+        <title>e-Portfolio</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <form name="myform">
-            <input type="file" id="fileInput">
-            <br/>
-            <button id="writeButton">ファイルに書き込む</button>
-        </form>
+        <div id="top">
+            <div id="operation">
+                <h1>e-Portfolio</h1>
+                <input type="file" id="fileInput">
+                <br/>
+                <button id="writeButton">ファイルに書き込む</button>
 
-        <!-- <button id="test">test</button> -->
-        <div id="userNameArea">
-            <h2 id="name">Name:</h2>
-            <h2 id="userName"></h2>
-        </div>
-        <div id="buttons">
-            <input type="radio" name="selectScope" value="all" checked="true">全体
-            <input type="radio" name="selectScope" value="day">日毎
-        <br/>
-        <select name="selectDay" id="selectDay">
-
-        </select>
-        <br/>
+                <!-- <button id="test">test</button> -->
+                <div id="userNameArea">
+                    <h2 id="name">Name:</h2>
+                    <textarea name="userName" id="userName"></textarea>
+                </div>
+                <div id="buttons">
+                    <label>
+                        <input type="radio" name="selectScope" value="all" checked="true" class="radio">全体
+                    </label>
+                    <label>
+                        <input type="radio" name="selectScope" value="day" class="radio">日毎
+                    </label>
+                    <select name="selectDay" id="selectDay"></select>
+                </div>
+            </div>
+            <div id="graphArea">
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
         <div id="tableAllArea">
         <table id="tableAll" class="table">
@@ -34,7 +40,7 @@
         <div id="tableArea">
 
         </div>
-        
+        <script src="chart.umd.js"></script>
         <script src=script.js></script>
     </body>
 </html>
