@@ -1,18 +1,36 @@
+#top{
+    display: flex;
+    align-items: center;
+}
+
 #fileInput{
-    margin: 10px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 300px;
+    cursor: pointer;
+}
+
+h1,h2{
+    margin: 0px 10px;
+    color: black;
 }
 
 #writeButton{
-    margin: 10px;
-}
-
-#outputJon{
-    margin: 10px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 300px;
+    cursor: pointer;
 }
 
 #selectDay{
-    margin: 10px 10px;
+    margin: 5px 5px;
     display: none;
+}
+
+.radio{
+    cursor: pointer;
 }
 
 #test{
@@ -22,10 +40,23 @@
 
 #userNameArea{
     display: none;
+    align-items: center;
 }
 
 #buttons{
     display: none;
+    align-items: center;
+    margin: 5px 10px;
+}
+
+label{
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+#graphArea{
+    width: 400px;
+    height: 200px;
 }
 
 .tableSame{
@@ -52,13 +83,25 @@ tr, th, td{
     display: none;
 }
 
-#name, #userName{
+#name{
     padding: 0 2px;
+    font-size: 30px;
+}
+
+#userName{
+    padding: 0 2px;
+    font-size: 30px;
+    font-family: Meiryo;
+    font-weight: bold;
+    height: 45px;
+    width: 300px;
+    resize: none;
 }
 
 #tableAllArea{
     overflow-y: auto;
-    max-height: 70vh;
+    max-height: 60vh;
+    border: 1px solid black;
 }
 
 #tableAll{
