@@ -39,7 +39,6 @@ function testClick(e){
         tr.appendChild(th);
     }
     tableAll.appendChild(tr);
-    
     const days = getValue(inputFile.item,"day");
     const passedPerDay = [];
     createSelect(days);
